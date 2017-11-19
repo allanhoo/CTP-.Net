@@ -1,0 +1,92 @@
+﻿CTP.Net   Adapter:   CTP期货.Net封装
+CTPZQ.Net Adapter:   CTP证券.Net封装
+CTPQQ.Net Adapter:   CTP期权.Net封装
+
+------------------------------------------------------------
+
+更新日志：
+20141101:
+期货版更新到CTP库20140811
+
+20140909:
+增加了CTP期权版，与期货V2版接口一致，只需要将名字空间改为CTPQQ即可。请大家自行测试。
+
+20140906:
+增加了CTP证券版，与期货V2版接口一致，只需要将名字空间改为CTPZQ即可。由于本人没有模拟账户，未进行测试，请大家自行测试。
+
+201407019：
+更新到CTP库20140327版本。整理了代码，实现V1、V2部分文件共享，以减少后期维护的工作量。
+
+20140628：
+转到VS2013，免费版的Visual Studio Express 2013 for Windows Desktop很好用，貌似可以不再用盗版了：）要编译C++项目，可能还需要安装 Windows SDK 8.1。
+本版缺省目标框架为.NetFramework 4.0,平台工具集v120, 部署时需要安装VC++ 2013 x86 Redistributable (下载地址 http://www.microsoft.com/zh-cn/download/details.aspx?id=40784)
+增加了CTP.Net V2版，目标文件为CTP.Net.dll，区别请参看FAQ。
+
+20131128：
+更新到CTP库20130402版本
+
+20121030：
+更新到CTP库20120530版本,增加Multiple AppDomain支持
+
+------------------------------------------------------------
+
+FAQ：
+1）出现"Could not load file or assembly 'CTP.dll' or one of its dependencies."的错误信息，怎么办？
+  答：出现这种情况，几乎都是库的依赖性的问题没有解决。
+  首先检查thostmduserapi.dll和thosttraderapi.dll文件是否在CTP.dll相同目录或者PATH环境变量所包含的目录。
+  其次要确保thostmduserapi.dll和thosttraderapi.dll跟生成CTP.dll库时对应的thostmduserapi.lib和thosttraderapi.lib版本一致，这些文件都在ThostTraderApi目录里。
+  然后确保对应的.Net Framework已安装，在Visual Studio中，通过项目属性->通用属性->目标框架可以看到这个版本。
+  最后检查是否已安装对应版本的Visual C++ Redistributable库，最容易发生问题就是这一项。
+  在Visual Studio中，通过项目属性->配置属性->常规->平台工具集可以看到你所编译的CTP.dll版本，比如v100,v110,v120等。
+  到windows的控制面板->程序->卸载，查看是否已安装需要的运行库，没有的话请到微软网站下载安装。对应关系为
+  9.00 -> Microsoft Visual C++ 2008 Redistributable (x86)
+  v100 -> Microsoft Visual C++ 2010 Redistributable (x86)
+  v110 -> Microsoft Visual C++ 2012 Redistributable (x86)
+  v120 -> Microsoft Visual C++ 2013 Redistributable (x86)
+  另外还有一个可能就是使用了重新编译的CTP.dll的Debug版本，在未安装VS的目标机器上测试，会因为缺少依赖的Debug库导致失败。所以应在目标机器上使用Release版本。
+  由于上期仅提供了windows下的32位CTP库，在64位操作系统中，开发应用程序时必须将平台设置为x86，而不能是Any CPU。
+  如果经过以上步骤还是搞不定的话，那么只能直接在目标机器上安装你开发软件时对应版本的Visual Studio了，一定也可以搞定。  
+
+2）如何生成需要的.Net Framework目标框架版本？
+  答：修改CTP.vcxproj文件，找到<TargetFrameworkVersion>，可以修改其后的v4.0为v3.5,v4.5等，然后重新编译生成CTP.dll。
+
+3）CTP.MA版有什么用？
+  答：CTP.MA版提供了Multiple AppDomain支持。非MA版本用于跨AppDomain环境(比如RightEdge)时，会报错：
+  “无法跨 AppDomain 传递 GCHandle”
+  “Cannot pass a GCHandle across AppDomains”
+  其实就是gcroot<>指针无法正确的跨AppDomain传递，此时必须使用MA版本。你的程序使用非MA版无问题的话，用非MA版就行了。
+
+4）CTP.Net V2版有什么区别？
+  答：V2版除了将所有回调函数进行整合外，其他都一样。整合后MarketDataAPI仅3个事件，TradeAPI仅5个事件如下，
+  OnCtpFrontEvent处理所有的OnFrontXXXX回调事件，
+  OnCtpErrRtnEvent处理所有的OnErrRtnXXXX回调事件，
+  OnCtpRtnEvent处理所有的OnRtnXXXX回调事件，
+  OnCtpRspQryEvent处理所有的OnRspQryXXXX回调事件，
+  OnCtpRspEvent处理除了OnRspQryXXXX之外，其他OnRspXXXX回调函数。
+  比如处理OnCtpRtnEvent事件，
+  void ProcCtpRtnEvent(object sender, CtpRtnEventArgs e)
+  {
+    switch (e.EventType)
+    {
+      case CtpEnumRtnType.RtnOrder:
+        {
+        ThostFtdcOrderField f = e.Param as ThostFtdcOrderField;
+        ....
+        }
+        break;
+      case ....
+	    ....
+      ...	
+  }
+  VS IDE中，通过CTP.Net.xml文件加载智能提示，查看CtpEnumRtnType的注释，可以找到对应的e.Param的类型。
+  我个人更喜欢V2这种集中处理的方式。
+
+------------------------------------------------------------
+shawn666.liu@hotmail.com
+
+
+
+
+
+
+

@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CTP", "CTP\CTP.vcxproj", "{8ACCBBA9-ECE5-4E81-A0C4-C9F294E2B9B1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CTP.MA", "CTP\CTP.MA.vcxproj", "{66A80773-90D1-4D0B-B83A-6BCED83183A0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BA516D7F-77B1-4A6C-9DF2-09F1734C32E8}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\说明.txt = ..\..\说明.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8ACCBBA9-ECE5-4E81-A0C4-C9F294E2B9B1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8ACCBBA9-ECE5-4E81-A0C4-C9F294E2B9B1}.Debug|Win32.Build.0 = Debug|Win32
+		{8ACCBBA9-ECE5-4E81-A0C4-C9F294E2B9B1}.Release|Win32.ActiveCfg = Release|Win32
+		{8ACCBBA9-ECE5-4E81-A0C4-C9F294E2B9B1}.Release|Win32.Build.0 = Release|Win32
+		{66A80773-90D1-4D0B-B83A-6BCED83183A0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{66A80773-90D1-4D0B-B83A-6BCED83183A0}.Debug|Win32.Build.0 = Debug|Win32
+		{66A80773-90D1-4D0B-B83A-6BCED83183A0}.Release|Win32.ActiveCfg = Release|Win32
+		{66A80773-90D1-4D0B-B83A-6BCED83183A0}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
