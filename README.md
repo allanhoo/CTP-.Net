@@ -1,2 +1,3 @@
 # CTP-.Net
-a good Tool 
+CTP.Net 是一个将上期技术的CTP C++库转换为托管库，供.Net程序调用的项目。
+目前支持期货、证券和期权接口。
